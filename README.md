@@ -1,7 +1,7 @@
 # 太极图形课S1-SPH 示例程序
 
 ## 背景简介
-该repo实现了Weakly Compressible Smooth Particle Hydrodynamics (WCSPH) 
+该repo实现了一种Weakly Compressible Smooth Particle Hydrodynamics (WCSPH) 方法，部分实现参考[SPlisHSPlasH](https://github.com/InteractiveComputerGraphics/SPlisHSPlasH)
 
 ## 效果展示
 
