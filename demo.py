@@ -4,7 +4,10 @@ from particle_system import ParticleSystem
 from wcsph import WCSPHSolver
 
 ti.init(arch=ti.cpu)
+
+# Use GPU for higher peformance if available
 # ti.init(arch=ti.gpu, device_memory_GB=3, packed=True)
+
 
 if __name__ == "__main__":
     ps = ParticleSystem((512, 512))
