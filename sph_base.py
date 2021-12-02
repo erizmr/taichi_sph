@@ -73,7 +73,7 @@ class SPHBase:
     @ti.func
     def pressure_force(self, p_i, p_j, r):
         # Compute the pressure force contribution, Symmetric Formula
-        res = -self.density_0 * self.ps.m_V * (self.ps.pressure[p_i] / self.ps.density[p_i] ** 2
+        res = - self.ps.density[p_j] * self.ps.m_V * (self.ps.pressure[p_i] / self.ps.density[p_i] ** 2
               + self.ps.pressure[p_j] / self.ps.density[p_j] ** 2) \
               * self.cubic_kernel_derivative(r)
         return res
