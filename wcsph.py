@@ -45,15 +45,13 @@ class WCSPHSolver(SPHBase):
             if self.ps.material[p_i] != self.ps.material_fluid:
                 continue
             x_i = self.ps.x[p_i]
+            # Add body force
             d_v = ti.Vector([0.0 for _ in range(self.ps.dim)])
+            d_v[self.ps.dim-1] = self.g
             for j in range(self.ps.particle_neighbors_num[p_i]):
                 p_j = self.ps.particle_neighbors[p_i, j]
                 x_j = self.ps.x[p_j]
                 d_v += self.viscosity_force(p_i, p_j, x_i - x_j)
-
-            # Add body force
-            if self.ps.material[p_i] == self.ps.material_fluid:
-                d_v += ti.Vector([0.0, self.g] if self.ps.dim == 2 else [0.0, 0.0, self.g])
             self.d_velocity[p_i] = d_v
 
     @ti.kernel
