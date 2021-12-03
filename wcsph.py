@@ -29,14 +29,15 @@ class WCSPHSolver(SPHBase):
             self.ps.density[p_i] = ti.max(self.ps.density[p_i], self.density_0)
             self.ps.pressure[p_i] = self.stiffness * (ti.pow(self.ps.density[p_i] / self.density_0, self.exponent) - 1.0)
         for p_i in range(self.ps.particle_num[None]):
+            if self.ps.material[p_i] != self.ps.material_fluid:
+                continue
             x_i = self.ps.x[p_i]
             d_v = ti.Vector([0.0 for _ in range(self.ps.dim)])
             for j in range(self.ps.particle_neighbors_num[p_i]):
                 p_j = self.ps.particle_neighbors[p_i, j]
                 x_j = self.ps.x[p_j]
-                if self.ps.material[p_i] == self.ps.material_fluid:
-                    # Compute Pressure force contribution
-                    d_v += self.pressure_force(p_i, p_j, x_i-x_j)
+                # Compute Pressure force contribution
+                d_v += self.pressure_force(p_i, p_j, x_i-x_j)
             self.d_velocity[p_i] += d_v
 
     @ti.kernel
